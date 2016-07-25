@@ -21,10 +21,10 @@ module TicTacToe
 
     def winner?
       winning_positions.each do |winning_position|
-        next_if winning_position_values(winning_position).all_empty?
+        next if winning_position_values(winning_position).all_empty?
         return true if winning_position_values(winning_position).all_same?
       end
-      false
+
     end
 
     def winning_position_values(winning_position)
@@ -42,8 +42,8 @@ module TicTacToe
     end
 
     def winning_positions
-      grid + 3
-      grid.transpose + 3
+      rows
+      rows.transpose
       diagonals
     end
 
@@ -51,6 +51,14 @@ module TicTacToe
       [
         [get_cell(0, 0), get_cell(1, 1), get_cell(2, 2)],
         [get_cell(0, 2), get_cell(1, 1), get_cell(2, 0)]
+      ]
+    end
+
+    def rows
+      [
+        [get_cell(0,0), get_cell(1,0), get_cell(2,0)],
+        [get_cell(0,1), get_cell(1,1), get_cell(2,1)],
+        [get_cell(0,2), get_cell(1,2), get_cell(2,2)]
       ]
     end
   end

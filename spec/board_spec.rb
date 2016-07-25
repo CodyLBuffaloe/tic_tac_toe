@@ -52,7 +52,7 @@ module TicTacToe
     TestCell = Struct.new(:value)
     let(:x_cell) { TestCell.new("X") }
     let(:y_cell) { TestCell.new("Y") }
-    let(:empty) { TestCell.new }
+    let(:empty) { TestCell.new("") }
 
     context "#game_over" do
 
