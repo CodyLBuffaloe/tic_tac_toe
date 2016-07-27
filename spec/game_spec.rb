@@ -58,7 +58,7 @@ module TicTacToe
       it "returns '{current_player.name} won!' if board shows a winner" do
         game = Game.new([bob, frank])
         game.stub(:current_player) { bob }
-        game.board.stub(:game_over) { winner }
+        game.board.stub(:game_over) { :winner }
         expect(game.game_over_message).to eq "bob won!"
       end
 

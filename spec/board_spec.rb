@@ -83,6 +83,8 @@ module TicTacToe
           [y_cell, y_cell, empty]
         ]
         board = Board.new(grid: grid)
+        puts "Test 1"
+        puts board.grid
         expect(board.game_over).to eq :winner
       end
 
@@ -93,6 +95,7 @@ module TicTacToe
           [y_cell, x_cell, empty]
         ]
         board = Board.new(grid: grid)
+        puts "Test 2"
         expect(board.game_over).to eq :winner
       end
 
@@ -103,6 +106,7 @@ module TicTacToe
           [y_cell, x_cell, x_cell]
         ]
         board = Board.new(grid: grid)
+        puts "Test 3"
         expect(board.game_over).to eq :winner
       end
 
@@ -123,7 +127,7 @@ module TicTacToe
           [y_cell, empty, empty]
         ]
         board = Board.new(grid: grid)
-        expect(board.game_over).to be_false
+        expect(board.game_over).to be_falsey
       end
     end
   end

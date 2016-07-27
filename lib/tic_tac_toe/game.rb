@@ -20,8 +20,13 @@ module TicTacToe
     end
 
     def game_over_message
-      return "#{current_player.name} won!" if board.game_over == :winner
-      return "The game ended in a tie" if board.game_over == :draw
+      if(board.game_over == :winner)
+        return "#{current_player.name} won!"
+      elsif(board.game_over == :draw)
+        return "The game ended in a tie"
+      else
+       puts "Continue playing"
+      end
     end
 
     def play
@@ -35,7 +40,7 @@ module TicTacToe
         if board.game_over
           puts game_over_message
           board.formatted_grid
-          return
+          return false
         else
           switch_players
         end

@@ -14,16 +14,31 @@ module TicTacToe
     end
 
     def game_over
-      return :winner if winner?
-      return :draw if draw?
-      false
+
+      if(winner?)
+        return :winner
+      elsif(draw?)
+        return :draw
+      else
+        false
+      end
+    end
+
+    def formatted_grid
+      grid.each do |row|
+        puts row.map{ |cell| cell.value.empty? ? "_" : cell.value }.join(" ")
+      end
     end
 
     def winner?
+
       winning_positions.each do |winning_position|
         next if winning_position_values(winning_position).all_empty?
-        return true if winning_position_values(winning_position).all_same?
+        if(winning_position_values(winning_position).all_same?)
+          return true
+        end
       end
+      false
 
     end
 
@@ -42,8 +57,8 @@ module TicTacToe
     end
 
     def winning_positions
-      rows
-      rows.transpose
+      grid +
+      grid.transpose +
       diagonals
     end
 
@@ -51,14 +66,6 @@ module TicTacToe
       [
         [get_cell(0, 0), get_cell(1, 1), get_cell(2, 2)],
         [get_cell(0, 2), get_cell(1, 1), get_cell(2, 0)]
-      ]
-    end
-
-    def rows
-      [
-        [get_cell(0,0), get_cell(1,0), get_cell(2,0)],
-        [get_cell(0,1), get_cell(1,1), get_cell(2,1)],
-        [get_cell(0,2), get_cell(1,2), get_cell(2,2)]
       ]
     end
   end
