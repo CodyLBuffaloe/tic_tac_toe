@@ -1,3 +1,4 @@
+require "spec_helper"
 module TicTacToe
   describe Game do
     let (:bob) { Player.new({ color: "X", name: "bob" })}
@@ -5,13 +6,13 @@ module TicTacToe
 
     context "#initialize" do
       it "randomly selects a current player" do
-        Array.any_instance.stub(:shuffle) { [frank, bob] }
+        allow_any_instance_of(Array).to receive(:shuffle) { [frank, bob] }
         game = Game.new([bob, frank])
         expect(game.current_player).to eq frank
       end
 
       it "randomly selects an other player" do
-        Array.any_instance.stub(:shuffle) { [frank, bob] }
+        allow_any_instance_of(Array).to receive(:shuffle) { [frank, bob] }
         game = Game.new([bob, frank])
         expect(game.other_player).to eq bob
       end
@@ -36,7 +37,7 @@ module TicTacToe
     context "#solicit_move" do
       it "asks the other player to make a move" do
         game = Game.new([bob, frank])
-        game.stub(:current_player){ bob }
+        allow(game).to receive_messages({:current_player => bob })
         expected = "bob: Enter a number between 1 and 9 to make your move"
         expect(game.solicit_move).to eq expected
       end
@@ -57,15 +58,15 @@ module TicTacToe
     context "#game_over_message" do
       it "returns '{current_player.name} won!' if board shows a winner" do
         game = Game.new([bob, frank])
-        game.stub(:current_player) { bob }
-        game.board.stub(:game_over) { :winner }
+        allow(game).to receive_messages( {:current_player => bob })
+        allow(game.board).to receive_messages({:game_over => :winner })
         expect(game.game_over_message).to eq "bob won!"
       end
 
       it "returns 'The game has ended in a tie' if board shows a draw" do
         game = Game.new([bob, frank])
-        game.stub(:current_player) { bob }
-        game.board.stub(:game_over) { :draw }
+        allow(game).to receive_messages({:current_player => bob })
+        allow(game.board).to receive_messages({:game_over => :draw })
         expect(game.game_over_message).to eq "The game ended in a tie"
       end
     end
